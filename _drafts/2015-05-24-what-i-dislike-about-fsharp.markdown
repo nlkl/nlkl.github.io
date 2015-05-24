@@ -8,9 +8,9 @@ categories: fsharp functional-programming
 
 Let me start by stressing that I do like the F# language, and this post is not a bashing of F# as such. I think F# has a lot to offer, and I recognize the compromises the language designers had to make, in order to make the .NET integration as smooth as possible. 
 
-However, all programming languages have flaws, and this post simply highlights some of the aspects of F# that I find somewhat annoying. Note that this post is highly subjective ;)
+However, all programming languages have intrinsic flaws, and this post simply highlights some of the aspects of F# that I find somewhat annoying. As you have already guessed, this post will be highly subjective ;)
 
-# OCaml heritage
+## OCaml heritage
 
 F# is both semantically and syntactically inspired by OCaml. Whereas this might make the language more familiar to OCaml developers, I believe that this choice has had a negative impact on the overall language design.
 
@@ -38,12 +38,21 @@ I am not saying that the syntax should necessarily be identical to that of Haske
 
 Finally, the language currently has a lot of optional and redundant syntax, due to this "ML compatibility" (which I think is complete bogus anyway). The optional syntactic constructs don't bother me much, but it feels unclean that they are there for no better reason.
 
-# Too much OOP and .NET
+## Too much OOP and .NET
 
-Whereas the OCaml heritage is only a minor painpoint, this is much more severe
+Whereas F#'s OCaml heritage is only a minor annoyance, my primary F# pain point is the amount of OOP interop you are forced into.
 
-# Lack of functional polymorphism
+F# comes with a small functional standard library, providing things such as list-manipulation and the like. As long as this is all you need, the world is all peachy. However, as soon as you are working on a task of non-trivial size, you will need to use functionality from _somewhere else_, as the F# standard library simply doesn't offer too much functionality out-of-the-box.
 
-# Too litle focus on data structures
+In practice, this mostly means that you will need to use regular C#-focused .NET libraries, as the current number of F# libraries is still somewhat limited (more on this below). On one hand, the ability to use .NET libraries directly is one of F#'s major selling points, but on the other hand this forces you to switch to an imperative coding style way too often.
+
+Imperative (and OOP) code in F# is more or less like C# with a lighter syntax. However, having to switch to an imperative style whenever you need to do anything non-trivial defeats much of the purpose of F# altogether. To make it even worse, OOP code in F# looks _messy_ compared to the functional equivalent - something that is worsened by the fact that type inferrence doesn't play well with OOP, requiring large amount of type annotations.
+
+In response, I more or less always end up writing functional wrappers for all the .NET functionality I need, which works relatively well in most cases, but adds huge amounts of overhead in the rest.
+
+
+### Lack of functional polymorphism
+
+## Too litle focus on data structures
 
 
