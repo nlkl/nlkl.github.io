@@ -56,7 +56,13 @@ It should of course be noted that OOP interop is the price we pay for running on
 
 # Lack of functional polymorphism
 
+One point that might force one into developing a partly OOP-based API, is the lack of non-OOP polymorphism.
 
+Apart from parametric polymorphism (aka generics) and a few hack-arounds, F# only supports polymorphism through the use of OOP (subtype polymorphism). In practice, this means that we are forced to use OOP whenever we want to abstract over different types in a slightly sophisticated way.
+
+In simple application code, we can often get quite far using generics and built-in convenience functionality, but once we are developing non-trivial abstractions, this lack of non-OOP polymorphism shows itself rather quickly. Being forced to use OOP because of the limitations of the language is a rather frustrating experience.
+
+Still, I certainly recognize that this is not an easy problem to solve for the language designers, due to the limitations imposed by the .NET interop. Nevertheless, having some sort of functional polymorphism, be it ad-hoc polymorphism/type classes or higher-order modules, would be a nice complement to the language.
 
 # Too litle focus on data structures
 
