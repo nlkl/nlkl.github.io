@@ -6,7 +6,7 @@ comments: true
 categories: functional-programming fsharp
 ---
 
-Let me start by stressing that I do like the F# language, and this post is not a bashing of F# as such. I think F# has a lot to offer, and I recognize the compromises the language designers had to make, in order to make the .NET integration as smooth as possible. 
+Let me start by stressing that I do like F#, and this post is not a bashing of F# as such. I think F# has a lot to offer, and I recognize the compromises the language designers had to make, in order to make the .NET integration as smooth as possible. 
 
 However, all programming languages have intrinsic flaws, and this post simply highlights some of the aspects of F# that I find somewhat annoying. As you have already guessed, this post will be highly subjective ;)
 
@@ -44,7 +44,7 @@ Whereas F#'s OCaml heritage is only a minor annoyance, my primary F# pain point 
 
 F# comes with a small functional standard library, providing things such as list-manipulation and the like. As long as this is all you need, the world is all peachy. However, as soon as you are working on a task of non-trivial size, you will need to use functionality from _somewhere else_, as the F# standard library simply doesn't offer too much functionality out-of-the-box.
 
-In practice, this mostly means that you will need to use regular C#-focused .NET libraries, as the current number of F# libraries is still somewhat limited (more on this below). On one hand, the ability to use .NET libraries directly is one of F#'s major selling points, but on the other, this forces you to switch to an imperative coding style way more often than I would like to.
+In practice, this mostly means that you will need to use regular C#-focused .NET libraries, as the current number of F# libraries is still somewhat limited. On one hand, the ability to use .NET libraries directly is one of F#'s major selling points, but on the other, this forces you to switch to an imperative coding style way more often than I would like to.
 
 Imperative (and OOP) code in F# is more or less like C# with a lighter syntax. However, having to switch to an imperative style whenever you need to do anything non-trivial defeats much of the purpose of F# altogether (exaggeration alert). To make it even worse, OOP code in F# looks _messy_ compared to the functional equivalent - something that is worsened by the fact that type inference doesn't play well with the OOP parts, requiring large amounts of type annotations.
 
@@ -58,25 +58,28 @@ It should of course be noted that OOP interop is the price we pay for running on
 
 One point that might force one into developing a partly OOP-based API, is the lack of non-OOP polymorphism.
 
-Apart from parametric polymorphism (aka generics) and a few hack-arounds, F# only supports polymorphism through the use of OOP (subtype polymorphism). In practice, this means that we are forced to use OOP whenever we want to abstract over different types in a slightly sophisticated way.
+Apart from parametric polymorphism (aka generics) and a few hack-arounds, F# only supports polymorphism through the use of OOP/subtype polymorphism. In practice, this means that we are forced to use OOP whenever we want to abstract over different types in a slightly sophisticated way.
 
 In simple application code, we can often get quite far using generics and built-in convenience functionality, but once we are developing non-trivial abstractions, this lack of non-OOP polymorphism shows itself rather quickly. Being forced to use OOP because of the limitations of the language is a rather frustrating experience. And the inability to abstract over monads can make me downright grumpy.
 
-Still, I certainly recognize that this is not an easy problem to solve for the language designers, due to the limitations imposed by the .NET interop. Nevertheless, some sort of functional polymorphism, be it ad-hoc polymorphism or higher-order modules, would be a nice complement to the language.
+Still, I certainly recognize that this is not an easy problem to solve for the language designers, as it isn't trivial to find a CIL representation that plays well the rest of .NET. Nevertheless, some sort of functional polymorphism, be it ad-hoc polymorphism or higher-order modules, would be a nice complement to the language.
 
 # Too litle focus on immutable data structures
 
 In my opinion, one of the central benefits of functional programming is the focus on immutability. In order to apply immutability effectively, however, it should be as convenient as possible to work with immutable data.
 
-Like most other functional programming languages, F# uses immutability by default. This is great, but working effectively with data also requires a toolbox of data structures that we can use, and unfortunately F# lacks behind in this respect.
+Like most other functional programming languages, F# uses immutability by default. This is great, but working effectively with data also requires a toolbox of data structures that we can use, and unfortunately F# lags behind in this respect.
 
 Out-of-the-box F# provides an immutable list (basically a stack), a sorted set, and a sorted map. In comparison, Clojure and Scala offer all of these, as well as a queue, a random-access list (aka vector), a lazy (memoized) list, and more efficient unsorted sets/maps.
 
-Again, this is a problem with the standard library, rather than the language itself. Still, it is so important that I had to mention it. There are third-party libraries that provide some of these data structures, but such essential functionality belong in the standard library.
+Again, this is a problem with the standard library, rather than the language itself. Still, it is so important that I had to mention it. There are third-party libraries that provide some of these data structures, but such essential functionality belong in the standard library. F# should at least provide an immutable queue (rather simple to implement) and an immutable vector (more complex, but not too much).
+
 
 # Final remarks
 
 Please note that this is by no means an exhaustive list, and I am sure I can find more annoying features if I look harder ;) 
 
-However, as I mentioned in the beginning, I still like the F# language as such, and enjoy using it where C# would be the alternative (although I do like C# for what it is as well). I am quite aware that no language is without design flaws and compromises, so don't take this too personally.
+I also recognize that F# is an open source project, and I can simply contribute if I want to improve things. And yes, I am slowly starting to do so.
+
+Finally, as I mentioned in the beginning, I still like the F# language as such, and enjoy using it where C# would be the alternative (although I do like C# for what it is as well). I am quite aware that no language is without design flaws and compromises, so don't take this too personally.
 
