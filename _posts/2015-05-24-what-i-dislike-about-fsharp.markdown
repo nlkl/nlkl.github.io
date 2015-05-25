@@ -18,7 +18,7 @@ The original F# syntax was closely inspired by that of OCaml. Since then, a "lig
 
 Particularly, I think that F# could have borrowed a few of the syntactic improvements of Haskell, to make the code a bit easier on the eyes. 
 
-One example of this is tupled type constructors, which produces a lot more noise than Haskell's curried version (I recognize that this is also a semantic difference). Consider the following contrived example:
+One example of this is tupled value constructors, which produces a lot more noise than Haskell's curried version (I recognize that this is also a semantic difference). Consider the following contrived example:
 
 {% highlight fsharp %}
 let formatPhoneNumber (PhoneNumber (prefix, number)) = ...
@@ -62,7 +62,7 @@ Apart from parametric polymorphism (aka generics) and a few hack-arounds, F# onl
 
 In simple application code, we can often get quite far using generics and built-in convenience functionality, but once we are developing non-trivial abstractions, this lack of non-OOP polymorphism shows itself rather quickly. Being forced to use OOP because of the limitations of the language is a rather frustrating experience. And the inability to abstract over monads can make me downright grumpy.
 
-Still, I certainly recognize that this is not an easy problem to solve for the language designers, as it isn't trivial to find a CIL representation that plays well the rest of .NET. Nevertheless, some sort of functional polymorphism, be it ad-hoc polymorphism or higher-order modules, would be a nice complement to the language.
+Still, I certainly recognize that this is not an easy problem to solve for the language designers, as it isn't trivial to find a CIL representation that plays well the rest of .NET (particularly not if we are talking higher-kinded polymorphism). Nevertheless, some sort of functional polymorphism, be it ad-hoc polymorphism, higher-order modules, or something else entirely, would be a nice complement to the language.
 
 # Too litle focus on immutable data structures
 
