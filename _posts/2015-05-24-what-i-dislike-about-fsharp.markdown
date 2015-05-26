@@ -50,7 +50,7 @@ Imperative (and OOP) code in F# is more or less like C# with a lighter syntax. H
 
 In response, I more or less always end up writing functional wrappers for all the .NET functionality I need, which works relatively well in most cases, but adds huge amounts of overhead in others, and are completely hopeless in the rest. It would be nice if these functional wrappers were already in place, although I do understand the _scale_ of such an undertaking. Still, in a language like Haskell, more or less all APIs are functional by nature - nice.
 
-F#-specific third-party libraries are better of course, but much less abundant. And even here, OOP code tends to sneak in somewhere. In general, the F# community is much more pragmatic than me when it comes to OOP - but a bit too pragmatic in my opinion. Whenever I have to write OOP code in F# it physically hurts, and I will do what I can do avoid it. Mostly, it just means it will hurt.
+F#-specific third-party libraries are better of course, but much less abundant. And even here, OOP code tends to sneak in somewhere. In general, the F# community is much more pragmatic than me when it comes to OOP - but a bit too pragmatic in my opinion. Whenever I have to write OOP code in F# it physically hurts, and I will do what I can do to avoid it. Mostly, it just means it will hurt.
 
 It should of course be noted that OOP interop is the price we pay for running on the .NET platform. As with most compromises, it is both a blessing and a curse.
 
