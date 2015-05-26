@@ -64,7 +64,7 @@ In simple application code, we can often get quite far using generics and built-
 
 Still, I certainly recognize that this is not an easy problem to solve for the language designers, as it isn't trivial to find a CIL representation that plays well the rest of .NET (particularly not if we are talking higher-kinded polymorphism). Nevertheless, some sort of functional polymorphism, be it ad-hoc polymorphism, higher-order modules, or something else entirely, would be a nice complement to the language.
 
-# Too litle focus on immutable data structures
+# Too little focus on immutable data structures
 
 In my opinion, one of the central benefits of functional programming is the focus on immutability. In order to apply immutability effectively, however, it should be as convenient as possible to work with immutable data.
 
