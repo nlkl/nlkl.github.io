@@ -1,23 +1,141 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>uncode</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+        <link rel="stylesheet" href="./css/normalize.min.css" />
+        <link rel="stylesheet" href="./css/milligram.min.css" />
+        <link rel="stylesheet" href="./css/font-awesome.min.css" />
+        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="canonical" href="https://nlkl.github.io/index.html">
+        <link rel="alternate" type="application/atom+xml" title="uncode" href="https://nlkl.github.io/atom.xml" />
+        <link rel="alternate" type="application/rss+xml" title="uncode" href="https://nlkl.github.io/feed.xml" />
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container">
+                <h1><a href="./">uncode</a></h1>
+                <h2>Nils Lück's blog</h2>
+                <nav>
+                    <a href="./posts.html">Posts</a>
+                    <a href="./about.html">About</a>
+                    <a href="./atom.xml"><i class="fa fa-rss"></i></a>
+                </nav>
+            </div>
+        </header>
+        <main>
+            
+    <section class="container">
+    <header>
+        <h1 class="post-title"><a href="./posts/2015-05-24-what-i-dislike-about-fsharp.html">What I dislike about F#<a></a></h1>
+        <p class="post-date"><i class="fa fa-calendar"></i>May 24, 2015</p>
+    </header>
+    <article>
+        <p>Let me start by stressing that I do like F#, and this post is not a bashing of F# as such. I think F# has a lot to offer, and I recognize the compromises the language designers had to make, in order to make the .NET integration as smooth as possible.</p>
+<p>However, all programming languages have intrinsic flaws, and this post simply highlights some of the aspects of F# that I find somewhat annoying. As you have already guessed, this post will be highly subjective ;)</p>
+<h2 id="ocaml-heritage">OCaml heritage</h2>
+<p>F# is both semantically and syntactically inspired by OCaml. Whereas this might make the language more familiar to OCaml developers, I believe that this choice has had a negative impact on the overall language design.</p>
+<p>The original F# syntax was closely inspired by that of OCaml. Since then, a “lighter” syntax was introduced (and made default), which removed a lot of the syntactic overhead of the old syntax. Even with the lighter syntax, however, the overall syntactic elements closely resemble those of OCaml, which means that F# is filled with lots of “arbitrary” syntactic decisions.</p>
+<p>Particularly, I think that F# could have borrowed a few of the syntactic improvements of Haskell, to make the code a bit easier on the eyes.</p>
+<p>One example of this is tupled value constructors, which produces a lot more noise than Haskell’s curried version (I recognize that this is also a semantic difference). Consider the following contrived example:</p>
+<div class="sourceCode"><pre class="sourceCode fsharp"><code class="sourceCode fsharp"><span class="kw">let</span> formatPhoneNumber (PhoneNumber (prefix, number)) = ...</code></pre></div>
+<p>And a hypothetical curried version could look like this:</p>
+<div class="sourceCode"><pre class="sourceCode fsharp"><code class="sourceCode fsharp"><span class="kw">let</span> formatPhoneNumber (PhoneNumber prefix number) = ...</code></pre></div>
+<p>Notice that the curried version is not only cleaner, but also more flexible, and doesn’t rule out that we could use a tupled version if we should so desire.</p>
+<p>Even so, I recognize that this isn’t going to make all that much of a difference by itself - but there are many small syntactic and semantic improvements that could be made, if the language design hadn’t followed OCaml as closely. Other examples include the lack of pattern matching directly in the function definition, the verbose lambda syntax (<code>fun x -&gt; ...</code>), no option to define custom operator associativity and precedence, semicolons as list separators (and the tuples-without-parens that causes it), verbose guard syntax, and many more. Each of them minor, but they add up to some level of annoyance.</p>
+<p>I am not saying that the syntax should necessarily be identical to that of Haskell either, but simply that the overall syntax could be improved in several places, in my (obviously subjective) view.</p>
+<p>Finally, the language currently has a lot of optional and redundant syntax, due to this “ML compatibility” (which I think is complete bogus anyway). The optional syntactic constructs don’t bother me much, but it feels unclean that they are there for no better reason.</p>
+<h2 id="too-much-oop">Too much OOP</h2>
+<p>Whereas F#’s OCaml heritage is only a minor annoyance, my primary F# pain point is the amount of OOP interop that is forced onto you.</p>
+<p>F# comes with a small functional standard library, providing things such as list-manipulation and the like. As long as this is all you need, the world is all peachy. However, as soon as you are working on a task of non-trivial size, you will need to use functionality from <em>somewhere else</em>, as the F# standard library simply doesn’t offer too much functionality out-of-the-box.</p>
+<p>In practice, this mostly means that you will need to use regular C#-focused .NET libraries, as the current number of F# libraries is still somewhat limited. On one hand, the ability to use .NET libraries directly is one of F#’s major selling points, but on the other, this forces you to switch to an imperative coding style way more often than I would like to.</p>
+<p>Imperative (and OOP) code in F# is more or less like C# with a lighter syntax. However, having to switch to an imperative style whenever you need to do anything non-trivial defeats much of the purpose of F# altogether (exaggeration alert). To make it even worse, OOP code in F# looks <em>messy</em> compared to the functional equivalent - something that is worsened by the fact that type inference doesn’t play well with the OOP parts, requiring large amounts of type annotations.</p>
+<p>In response, I more or less always end up writing functional wrappers for all the .NET functionality I need, which works relatively well in most cases, but adds huge amounts of overhead in others, and are completely hopeless in the rest. It would be nice if these functional wrappers were already in place, although I do understand the <em>scale</em> of such an undertaking. Still, in a language like Haskell, more or less all APIs are functional by nature - nice.</p>
+<p>F#-specific third-party libraries are better of course, but much less abundant. And even here, OOP code tends to sneak in somewhere. In general, the F# community is much more pragmatic than me when it comes to OOP - but a bit too pragmatic in my opinion. Whenever I have to write OOP code in F# it physically hurts, and I will do what I can do to avoid it. Mostly, it just means it will hurt.</p>
+<p>It should of course be noted that OOP interop is the price we pay for running on the .NET platform. As with most compromises, it is both a blessing and a curse.</p>
+<h2 id="lack-of-functional-polymorphism">Lack of functional polymorphism</h2>
+<p>One point that might force one into developing a partly OOP-based API, is the lack of non-OOP polymorphism.</p>
+<p>Apart from parametric polymorphism (aka generics) and a few hack-arounds, F# only supports polymorphism through the use of OOP/subtype polymorphism. In practice, this means that we are forced to use OOP whenever we want to abstract over different types in a slightly sophisticated way.</p>
+<p>In simple application code, we can often get quite far using generics and built-in convenience functionality, but once we are developing non-trivial abstractions, this lack of non-OOP polymorphism shows itself rather quickly. Being forced to use OOP because of the limitations of the language is a rather frustrating experience. And the inability to abstract over monads can make me downright grumpy.</p>
+<p>Still, I certainly recognize that this is not an easy problem to solve for the language designers, as it isn’t trivial to find a CIL representation that plays well with the rest of .NET (particularly not if we are talking higher-kinded polymorphism). Nevertheless, some sort of functional polymorphism, be it ad-hoc polymorphism, higher-order modules, or something else entirely, would be a nice complement to the language.</p>
+<h2 id="too-little-focus-on-immutable-data-structures">Too little focus on immutable data structures</h2>
+<p>In my opinion, one of the central benefits of functional programming is the focus on immutability. In order to apply immutability effectively, however, it should be as convenient as possible to work with immutable data.</p>
+<p>Like most other functional programming languages, F# uses immutability by default. This is great, but working effectively with data also requires a toolbox of data structures that we can use, and unfortunately F# lags behind in this respect.</p>
+<p>Out-of-the-box F# provides an immutable list (basically a stack), a sorted set, and a sorted map. In comparison, Clojure and Scala offer all of these, as well as a queue, a random-access list (aka vector), a lazy (memoized) list, and more efficient unsorted sets/maps.</p>
+<p>Again, this is a problem with the standard library, rather than the language itself. Still, it is so important that I had to mention it. There are third-party libraries that provide some of these data structures, but such essential functionality belong in the standard library. F# should at least provide an immutable queue (rather simple to implement) and an immutable vector (more complex, but not too much).</p>
+<h2 id="final-remarks">Final remarks</h2>
+<p>Please note that this is by no means an exhaustive list, and I am sure I can find more annoying features if I look harder ;)</p>
+<p>I also recognize that F# is an open source project, and I can simply contribute if I want to improve things. And yes, I am slowly starting to do so.</p>
+<p>Finally, as I mentioned in the beginning, I still like the F# language as such, and enjoy using it where C# would be the alternative (although I do like C# for what it is as well). I am quite aware that no language is without design flaws and compromises, so don’t take this too personally.</p>
 
-<div class="home">
+        
+            <a class="comments-link" href="./posts/2015-05-24-what-i-dislike-about-fsharp.html#comments"><i class="fa fa-comments"></i>Comments</a>
+        
+    </article>
+</section>
 
-  <h1 class="page-heading">Posts</h1>
+    <section class="container"><hr /></section>
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+    <section class="container">
+    <header>
+        <h1 class="post-title"><a href="./posts/2015-05-24-new-blog.html">Mandatory introductory post<a></a></h1>
+        <p class="post-date"><i class="fa fa-calendar"></i>May 24, 2015</p>
+    </header>
+    <article>
+        <p>It seems that everyone is having a personal development-blog nowadays, so I thought I might as well give it a shot too.</p>
+<p>My name is Nils Lück and I am a software developer currently residing in Copenhagen, Denmark. I work as a .NET (C#) developer, but my interests span more widely. Specifically, I enjoy functional programming, simplistic software design, and programming languages in general.</p>
+<p>As a fair warning, I plan on writing about things I like and the things I don’t. You might agree or not, but please note that this simply reflects my own thoughts and opinions.</p>
+<p>Until I actually write something useful’ish, feel free to follow me on <a href="https://github.com/nlkl">GitHub</a>.</p>
+<p>Oh, and I am positively surprised that Jekyll supports syntax highlighting out-of-the-box:</p>
+<div class="sourceCode"><pre class="sourceCode fsharp"><code class="sourceCode fsharp"><span class="kw">let</span> <span class="kw">rec</span> map mapping xs =
+    <span class="kw">match</span> xs <span class="kw">with</span>
+    | x :: xs' -&gt; mapping x :: map mapping xs'
+    | [] -&gt; []</code></pre></div>
 
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
+        
+    </article>
+</section>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+    <section class="container"><hr /></section>
 
-</div>
+
+<section class="container">
+    <a class="button" href="./posts.html">View All Posts</a>
+</section>
+
+        </main>
+        <footer>
+            <div class="container">
+                <h2>uncode</h2>
+                <div class="row">
+                    <div class="column">
+                        <i class="fa fa-github"></i> <a href="https://github.com/nlkl">nlkl</a><br />
+                        <i class="fa fa-twitter"></i> <a href="https://twitter.com/nilsluck">nilsluck</a>
+                    </div>
+                    <div class="column column-75 column-responsive">
+                        <p>This is my attempt at an opinionated coding blog. I fancy minimalistic and  consistent software design, functional programming principles, code-aesthetics,  and unbureacratic coding practices - my blog will reflect this, so be ware.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-41375063-2', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+
+        <script>
+          var host = 'nlkl.github.io';
+          if (window.location.host == host &&  window.location.protocol != 'https:') {
+            window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+          }
+        </script>
+    </body>
+</html>

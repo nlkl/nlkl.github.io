@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
-    xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <channel>
-        <title>uncode . Nils Lück's blog</title>
-        <link>https://nlkl.github.io</link>
-        <description><![CDATA[Nils Lück's blog on technology, best practice, architecture and all such things.]]></description>
-        <atom:link href="https://nlkl.github.io/feed.xml" rel="self"
-                   type="application/rss+xml" />
-        <lastBuildDate>Sun, 24 May 2015 17:38:00 UT</lastBuildDate>
-        <item>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>uncode . Nils Lück's blog</title>
+    <link href="https://nlkl.github.io/atom.xml" rel="self" />
+    <link href="https://nlkl.github.io" />
+    <id>https://nlkl.github.io/atom.xml</id>
+    <author>
+        <name>Nils Lück</name>
+        <email>nils.luck@outlook.com</email>
+    </author>
+    <updated>2015-05-24T17:38:00Z</updated>
+    <entry>
     <title>What I dislike about F#</title>
-    <link>https://nlkl.github.io/posts/2015-05-24-what-i-dislike-about-fsharp.html</link>
-    <description><![CDATA[<section class="container">
+    <link href="https://nlkl.github.io/posts/2015-05-24-what-i-dislike-about-fsharp.html" />
+    <id>https://nlkl.github.io/posts/2015-05-24-what-i-dislike-about-fsharp.html</id>
+    <published>2015-05-24T17:38:00Z</published>
+    <updated>2015-05-24T17:38:00Z</updated>
+    <summary type="html"><![CDATA[<section class="container">
     <header>
         <h1 class="post-title"><a href="/posts/2015-05-24-what-i-dislike-about-fsharp.html">What I dislike about F#<a/></h1>
         <p class="post-date"><i class="fa fa-calendar"></i>May 24, 2015</p>
@@ -59,15 +63,15 @@
         
     </article>
 </section>
-]]></description>
-    <pubDate>Sun, 24 May 2015 17:38:00 UT</pubDate>
-    <guid>https://nlkl.github.io/posts/2015-05-24-what-i-dislike-about-fsharp.html</guid>
-    <dc:creator>Nils Lück</dc:creator>
-</item>
-<item>
+]]></summary>
+</entry>
+<entry>
     <title>Mandatory introductory post</title>
-    <link>https://nlkl.github.io/posts/2015-05-24-new-blog.html</link>
-    <description><![CDATA[<section class="container">
+    <link href="https://nlkl.github.io/posts/2015-05-24-new-blog.html" />
+    <id>https://nlkl.github.io/posts/2015-05-24-new-blog.html</id>
+    <published>2015-05-24T13:14:12Z</published>
+    <updated>2015-05-24T13:14:12Z</updated>
+    <summary type="html"><![CDATA[<section class="container">
     <header>
         <h1 class="post-title"><a href="/posts/2015-05-24-new-blog.html">Mandatory introductory post<a/></h1>
         <p class="post-date"><i class="fa fa-calendar"></i>May 24, 2015</p>
@@ -86,11 +90,7 @@
         
     </article>
 </section>
-]]></description>
-    <pubDate>Sun, 24 May 2015 13:14:12 UT</pubDate>
-    <guid>https://nlkl.github.io/posts/2015-05-24-new-blog.html</guid>
-    <dc:creator>Nils Lück</dc:creator>
-</item>
+]]></summary>
+</entry>
 
-    </channel>
-</rss>
+</feed>

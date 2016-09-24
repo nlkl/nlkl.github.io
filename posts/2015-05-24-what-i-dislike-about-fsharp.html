@@ -1,19 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
-    xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <channel>
-        <title>uncode . Nils Lück's blog</title>
-        <link>https://nlkl.github.io</link>
-        <description><![CDATA[Nils Lück's blog on technology, best practice, architecture and all such things.]]></description>
-        <atom:link href="https://nlkl.github.io/feed.xml" rel="self"
-                   type="application/rss+xml" />
-        <lastBuildDate>Sun, 24 May 2015 17:38:00 UT</lastBuildDate>
-        <item>
-    <title>What I dislike about F#</title>
-    <link>https://nlkl.github.io/posts/2015-05-24-what-i-dislike-about-fsharp.html</link>
-    <description><![CDATA[<section class="container">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>uncode</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+        <link rel="stylesheet" href="../css/normalize.min.css" />
+        <link rel="stylesheet" href="../css/milligram.min.css" />
+        <link rel="stylesheet" href="../css/font-awesome.min.css" />
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="canonical" href="https://nlkl.github.io/posts/2015-05-24-what-i-dislike-about-fsharp.html">
+        <link rel="alternate" type="application/atom+xml" title="uncode" href="https://nlkl.github.io/atom.xml" />
+        <link rel="alternate" type="application/rss+xml" title="uncode" href="https://nlkl.github.io/feed.xml" />
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container">
+                <h1><a href="../">uncode</a></h1>
+                <h2>Nils Lück's blog</h2>
+                <nav>
+                    <a href="../posts.html">Posts</a>
+                    <a href="../about.html">About</a>
+                    <a href="../atom.xml"><i class="fa fa-rss"></i></a>
+                </nav>
+            </div>
+        </header>
+        <main>
+            <section class="container">
     <header>
-        <h1 class="post-title"><a href="/posts/2015-05-24-what-i-dislike-about-fsharp.html">What I dislike about F#<a/></h1>
+        <h1 class="post-title">What I dislike about F#</h1>
         <p class="post-date"><i class="fa fa-calendar"></i>May 24, 2015</p>
     </header>
     <article>
@@ -53,44 +67,58 @@
 <p>Please note that this is by no means an exhaustive list, and I am sure I can find more annoying features if I look harder ;)</p>
 <p>I also recognize that F# is an open source project, and I can simply contribute if I want to improve things. And yes, I am slowly starting to do so.</p>
 <p>Finally, as I mentioned in the beginning, I still like the F# language as such, and enjoy using it where C# would be the alternative (although I do like C# for what it is as well). I am quite aware that no language is without design flaws and compromises, so don’t take this too personally.</p>
-
-        
-            <a class="comments-link" href="/posts/2015-05-24-what-i-dislike-about-fsharp.html#comments"><i class="fa fa-comments"></i>Comments</a>
-        
     </article>
-</section>
-]]></description>
-    <pubDate>Sun, 24 May 2015 17:38:00 UT</pubDate>
-    <guid>https://nlkl.github.io/posts/2015-05-24-what-i-dislike-about-fsharp.html</guid>
-    <dc:creator>Nils Lück</dc:creator>
-</item>
-<item>
-    <title>Mandatory introductory post</title>
-    <link>https://nlkl.github.io/posts/2015-05-24-new-blog.html</link>
-    <description><![CDATA[<section class="container">
-    <header>
-        <h1 class="post-title"><a href="/posts/2015-05-24-new-blog.html">Mandatory introductory post<a/></h1>
-        <p class="post-date"><i class="fa fa-calendar"></i>May 24, 2015</p>
-    </header>
-    <article>
-        <p>It seems that everyone is having a personal development-blog nowadays, so I thought I might as well give it a shot too.</p>
-<p>My name is Nils Lück and I am a software developer currently residing in Copenhagen, Denmark. I work as a .NET (C#) developer, but my interests span more widely. Specifically, I enjoy functional programming, simplistic software design, and programming languages in general.</p>
-<p>As a fair warning, I plan on writing about things I like and the things I don’t. You might agree or not, but please note that this simply reflects my own thoughts and opinions.</p>
-<p>Until I actually write something useful’ish, feel free to follow me on <a href="https://github.com/nlkl">GitHub</a>.</p>
-<p>Oh, and I am positively surprised that Jekyll supports syntax highlighting out-of-the-box:</p>
-<div class="sourceCode"><pre class="sourceCode fsharp"><code class="sourceCode fsharp"><span class="kw">let</span> <span class="kw">rec</span> map mapping xs =
-    <span class="kw">match</span> xs <span class="kw">with</span>
-    | x :: xs&#39; -&gt; mapping x :: map mapping xs&#39;
-    | [] -&gt; []</code></pre></div>
 
-        
-    </article>
+    
+        <span id="comments"></span>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES * * */
+          var disqus_shortname = 'nlkl-blog';
+          
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    
 </section>
-]]></description>
-    <pubDate>Sun, 24 May 2015 13:14:12 UT</pubDate>
-    <guid>https://nlkl.github.io/posts/2015-05-24-new-blog.html</guid>
-    <dc:creator>Nils Lück</dc:creator>
-</item>
 
-    </channel>
-</rss>
+        </main>
+        <footer>
+            <div class="container">
+                <h2>uncode</h2>
+                <div class="row">
+                    <div class="column">
+                        <i class="fa fa-github"></i> <a href="https://github.com/nlkl">nlkl</a><br />
+                        <i class="fa fa-twitter"></i> <a href="https://twitter.com/nilsluck">nilsluck</a>
+                    </div>
+                    <div class="column column-75 column-responsive">
+                        <p>This is my attempt at an opinionated coding blog. I fancy minimalistic and  consistent software design, functional programming principles, code-aesthetics,  and unbureacratic coding practices - my blog will reflect this, so be ware.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-41375063-2', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+
+        <script>
+          var host = 'nlkl.github.io';
+          if (window.location.host == host &&  window.location.protocol != 'https:') {
+            window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+          }
+        </script>
+    </body>
+</html>
