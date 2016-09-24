@@ -9,6 +9,16 @@
 
 /* === Base === */
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
 section.container {
     margin-top: 2.5rem;
 }
@@ -114,7 +124,7 @@ footer p {
     margin-top: -1rem;
 }
 
-.post-date i {
+.post-date i, .comments-link i {
     margin-right: 0.8rem;
 }
 

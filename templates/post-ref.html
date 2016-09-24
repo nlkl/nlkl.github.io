@@ -1,0 +1,13 @@
+<section class="container">
+    <header>
+        <h1 class="post-title"><a href="$url$">$title$<a/></h1>
+        <p class="post-date"><i class="fa fa-calendar"></i>$date$</p>
+    </header>
+    <article>
+        $body$
+
+        $if(comments)$
+            <a class="comments-link" href="$url$#comments"><i class="fa fa-comments"></i>Comments</a>
+        $endif$
+    </article>
+</section>

@@ -19,12 +19,17 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
+    match "redirects/**" $ do
+        route $ gsubRoute "redirects/" (const "")
+        compile compressCssCompiler
+
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ do
             compiled <- pandocCompiler
             post <- loadAndApplyTemplate "templates/post.html" postCtx compiled
-            saveSnapshot "post" post
+            postRef <- loadAndApplyTemplate "templates/post-ref.html" postCtx compiled
+            saveSnapshot "post" postRef
             loadAndApplyTemplate "templates/layout.html" postCtx post
                 >>= relativizeUrls
 
@@ -48,9 +53,32 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/layout.html" indexCtx
                 >>= relativizeUrls
 
+    create ["atom.xml"] $ do
+        route idRoute
+        compile $ do
+            let feedCtx = postCtx `mappend` bodyField "description"
+            posts <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "post"
+            renderAtom feedConfiguration feedCtx posts
+
+    create ["feed.xml"] $ do
+        route idRoute
+        compile $ do
+            let feedCtx = postCtx `mappend` bodyField "description"
+            posts <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "post"
+            renderRss feedConfiguration feedCtx posts
+
     match "templates/*" $ compile templateCompiler
 
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
+
+feedConfiguration :: FeedConfiguration
+feedConfiguration = FeedConfiguration
+    { feedTitle       = "uncode . Nils Lück's blog"
+    , feedDescription = "Nils Lück's blog on technology, best practice, architecture and all such things."
+    , feedAuthorName  = "Nils Lück"
+    , feedAuthorEmail = "nils.luck@outlook.com"
+    , feedRoot        = "https://nlkl.github.io"
+    }
