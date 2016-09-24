@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>uncode</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+        <link rel="stylesheet" href="css/normalize.min.css" />
+        <link rel="stylesheet" href="css/milligram.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container">
+                <h1><a href="/">uncode</a></h1>
+                <h2>Nils Lück's blog</h2>
+                <nav>
+                    <a href="#">Posts</a>
+                    <a href="#">About</a>
+                    <a href="#"><i class="fa fa-rss"></i></a>
+                </nav>
+            </div>
+        </header>
+        <main>
+            <section class="container">
+<div class="sourceCode"><pre class="sourceCode cs"><code class="sourceCode cs"><span class="kw">using</span> System;
+<span class="kw">using</span> System.<span class="fu">Collections</span>.<span class="fu">Generic</span>;
+<span class="kw">using</span> System.<span class="fu">Linq</span>;
+<span class="kw">using</span> System.<span class="fu">Text</span>;
+
+<span class="kw">namespace</span> Optional
+{
+    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+    <span class="co">/// Represents an optional value.</span>
+    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+    <span class="co">/// </span><span class="kw">&lt;typeparam</span><span class="ot"> name=</span><span class="dt">"T"</span><span class="kw">&gt;</span><span class="co">The type of the value to be wrapped.</span><span class="kw">&lt;/typeparam&gt;</span>
+<span class="kw">#if</span> !NETSTANDARD
+    [Serializable]
+<span class="kw">#endif</span>
+    <span class="kw">public</span> <span class="kw">struct</span> Option&lt;T&gt; : IEquatable&lt;Option&lt;T&gt;&gt;
+    {
+        <span class="kw">private</span> <span class="kw">readonly</span> <span class="dt">bool</span> hasValue;
+        <span class="kw">private</span> <span class="kw">readonly</span> T value;
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Checks if a value is present.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="kw">public</span> <span class="dt">bool</span> HasValue =&gt; hasValue;
+
+        <span class="kw">internal</span> T Value =&gt; value;
+
+        <span class="kw">internal</span> <span class="fu">Option</span>(T value, <span class="dt">bool</span> hasValue)
+        {
+            <span class="kw">this</span>.<span class="fu">value</span> = value;
+            <span class="kw">this</span>.<span class="fu">hasValue</span> = hasValue;
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Determines whether two optionals are equal.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"other"</span><span class="kw">&gt;</span><span class="co">The optional to compare with the current one.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A boolean indicating whether or not the optionals are equal.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> <span class="dt">bool</span> <span class="fu">Equals</span>(Option&lt;T&gt; other)
+        {
+            <span class="kw">if</span> (!hasValue &amp;&amp; !other.<span class="fu">hasValue</span>)
+            {
+                <span class="kw">return</span> <span class="kw">true</span>;
+            }
+            <span class="kw">else</span> <span class="kw">if</span> (hasValue &amp;&amp; other.<span class="fu">hasValue</span>)
+            {
+                <span class="kw">return</span> EqualityComparer&lt;T&gt;.<span class="fu">Default</span>.<span class="fu">Equals</span>(value, other.<span class="fu">value</span>);
+            }
+
+            <span class="kw">return</span> <span class="kw">false</span>;
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Determines whether two optionals are equal.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"obj"</span><span class="kw">&gt;</span><span class="co">The optional to compare with the current one.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A boolean indicating whether or not the optionals are equal.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> <span class="kw">override</span> <span class="dt">bool</span> <span class="fu">Equals</span>(<span class="dt">object</span> obj) =&gt; obj <span class="kw">is</span> Option&lt;T&gt; ? <span class="fu">Equals</span>((Option&lt;T&gt;)obj) : <span class="kw">false</span>;
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Determines whether two optionals are equal.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"left"</span><span class="kw">&gt;</span><span class="co">The first optional to compare.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"right"</span><span class="kw">&gt;</span><span class="co">The second optional to compare.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A boolean indicating whether or not the optionals are equal.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">bool</span> <span class="kw">operator</span> ==(Option&lt;T&gt; left, Option&lt;T&gt; right) =&gt; left.<span class="fu">Equals</span>(right);
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Determines whether two optionals are unequal.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"left"</span><span class="kw">&gt;</span><span class="co">The first optional to compare.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"right"</span><span class="kw">&gt;</span><span class="co">The second optional to compare.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A boolean indicating whether or not the optionals are unequal.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">bool</span> <span class="kw">operator</span> !=(Option&lt;T&gt; left, Option&lt;T&gt; right) =&gt; !left.<span class="fu">Equals</span>(right);
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Generates a hash code for the current optional.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A hash code for the current optional.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> <span class="kw">override</span> <span class="dt">int</span> <span class="fu">GetHashCode</span>()
+        {
+            <span class="kw">if</span> (hasValue)
+            {
+                <span class="kw">if</span> (value == <span class="kw">null</span>)
+                {
+                    <span class="kw">return</span> <span class="dv">1</span>;
+                }
+
+                <span class="kw">return</span> value.<span class="fu">GetHashCode</span>();
+            }
+
+            <span class="kw">return</span> <span class="dv">0</span>;
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Returns a string that represents the current optional.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A string that represents the current optional.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> <span class="kw">override</span> <span class="dt">string</span> <span class="fu">ToString</span>()
+        {
+            <span class="kw">if</span> (hasValue)
+            {
+                <span class="kw">if</span> (value == <span class="kw">null</span>)
+                {
+                    <span class="kw">return</span> <span class="st">"Some(null)"</span>;
+                }
+
+                <span class="kw">return</span> <span class="dt">string</span>.<span class="fu">Format</span>(<span class="st">"Some({0})"</span>, value);
+            }
+
+            <span class="kw">return</span> <span class="st">"None"</span>;
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Converts the current optional into an enumerable with one or zero elements.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A corresponding enumerable.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> IEnumerable&lt;T&gt; <span class="fu">ToEnumerable</span>()
+        {
+            <span class="kw">if</span> (hasValue)
+            {
+                <span class="kw">yield</span> <span class="kw">return</span> value;
+            }
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Returns an enumerator for the optional.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The enumerator.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> IEnumerator&lt;T&gt; <span class="fu">GetEnumerator</span>()
+        {
+            <span class="kw">if</span> (hasValue)
+            {
+                <span class="kw">yield</span> <span class="kw">return</span> value;
+            }
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Determines if the current optional contains a specified value.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"value"</span><span class="kw">&gt;</span><span class="co">The value to locate.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A boolean indicating whether or not the value was found.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> <span class="dt">bool</span> <span class="fu">Contains</span>(T value)
+        {
+            <span class="kw">if</span> (hasValue)
+            {
+                <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">value</span> == <span class="kw">null</span>)
+                {
+                    <span class="kw">return</span> value == <span class="kw">null</span>;
+                }
+
+                <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">value</span>.<span class="fu">Equals</span>(value);
+            }
+
+            <span class="kw">return</span> <span class="kw">false</span>;
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Determines if the current optional contains a value </span>
+        <span class="co">/// satisfying a specified predicate.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"predicate"</span><span class="kw">&gt;</span><span class="co">The predicate.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A boolean indicating whether or not the predicate was satisfied.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> <span class="dt">bool</span> <span class="fu">Exists</span>(Func&lt;T, <span class="dt">bool</span>&gt; predicate) =&gt; hasValue &amp;&amp; <span class="fu">predicate</span>(value);
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Returns the existing value if present, and otherwise an alternative value.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"alternative"</span><span class="kw">&gt;</span><span class="co">The alternative value.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The existing or alternative value.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> T <span class="fu">ValueOr</span>(T alternative) =&gt; hasValue ? value : alternative;
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Returns the existing value if present, and otherwise an alternative value.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"alternativeFactory"</span><span class="kw">&gt;</span><span class="co">A factory function to create an alternative value.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The existing or alternative value.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> T <span class="fu">ValueOr</span>(Func&lt;T&gt; alternativeFactory) =&gt; hasValue ? value : <span class="fu">alternativeFactory</span>();
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Uses an alternative value, if no existing value is present.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"alternative"</span><span class="kw">&gt;</span><span class="co">The alternative value.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A new optional, containing either the existing or alternative value.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;T&gt; <span class="fu">Or</span>(T alternative) =&gt; hasValue ? <span class="kw">this</span> : Option.<span class="fu">Some</span>(alternative);
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Uses an alternative value, if no existing value is present.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"alternativeFactory"</span><span class="kw">&gt;</span><span class="co">A factory function to create an alternative value.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">A new optional, containing either the existing or alternative value.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;T&gt; <span class="fu">Or</span>(Func&lt;T&gt; alternativeFactory) =&gt; hasValue ? <span class="kw">this</span> : Option.<span class="fu">Some</span>(<span class="fu">alternativeFactory</span>());
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Uses an alternative optional, if no existing value is present.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"alternativeOption"</span><span class="kw">&gt;</span><span class="co">The alternative optional.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The alternative optional, if no value is present, otherwise itself.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;T&gt; <span class="fu">Else</span>(Option&lt;T&gt; alternativeOption) =&gt; hasValue ? <span class="kw">this</span> : alternativeOption;
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Uses an alternative optional, if no existing value is present.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"alternativeOptionFactory"</span><span class="kw">&gt;</span><span class="co">A factory function to create an alternative optional.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The alternative optional, if no value is present, otherwise itself.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;T&gt; <span class="fu">Else</span>(Func&lt;Option&lt;T&gt;&gt; alternativeOptionFactory) =&gt; hasValue ? <span class="kw">this</span> : <span class="fu">alternativeOptionFactory</span>();
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Attaches an exceptional value to an empty optional.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"exception"</span><span class="kw">&gt;</span><span class="co">The exceptional value to attach.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">An optional with an exceptional value.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;T, TException&gt; WithException&lt;TException&gt;(TException exception)
+        {
+            <span class="kw">return</span> <span class="fu">Match</span>(
+                some: value =&gt; Option.<span class="fu">Some</span>&lt;T, TException&gt;(value),
+                none: () =&gt; Option.<span class="fu">None</span>&lt;T, TException&gt;(exception)
+            );
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Attaches an exceptional value to an empty optional.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"exceptionFactory"</span><span class="kw">&gt;</span><span class="co">A factory function to create an exceptional value to attach.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">An optional with an exceptional value.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;T, TException&gt; WithException&lt;TException&gt;(Func&lt;TException&gt; exceptionFactory)
+        {
+            <span class="kw">return</span> <span class="fu">Match</span>(
+                some: value =&gt; Option.<span class="fu">Some</span>&lt;T, TException&gt;(value),
+                none: () =&gt; Option.<span class="fu">None</span>&lt;T, TException&gt;(<span class="fu">exceptionFactory</span>())
+            );
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Evaluates a specified function, based on whether a value is present or not.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"some"</span><span class="kw">&gt;</span><span class="co">The function to evaluate if the value is present.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"none"</span><span class="kw">&gt;</span><span class="co">The function to evaluate if the value is missing.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The result of the evaluated function.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> TResult Match&lt;TResult&gt;(Func&lt;T, TResult&gt; some, Func&lt;TResult&gt; none) =&gt; hasValue ? <span class="fu">some</span>(value) : <span class="fu">none</span>();
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Evaluates a specified action, based on whether a value is present or not.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"some"</span><span class="kw">&gt;</span><span class="co">The action to evaluate if the value is present.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"none"</span><span class="kw">&gt;</span><span class="co">The action to evaluate if the value is missing.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Match</span>(Action&lt;T&gt; some, Action none)
+        {
+            <span class="kw">if</span> (hasValue)
+            {
+                <span class="fu">some</span>(value);
+            }
+            <span class="kw">else</span>
+            {
+                <span class="fu">none</span>();
+            }
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Transforms the inner value in an optional.</span>
+        <span class="co">/// If the instance is empty, an empty optional is returned.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"mapping"</span><span class="kw">&gt;</span><span class="co">The transformation function.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The transformed optional.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;TResult&gt; Map&lt;TResult&gt;(Func&lt;T, TResult&gt; mapping)
+        {
+            <span class="kw">return</span> <span class="fu">Match</span>(
+                some: value =&gt; Option.<span class="fu">Some</span>(<span class="fu">mapping</span>(value)),
+                none: () =&gt; Option.<span class="fu">None</span>&lt;TResult&gt;()
+            );
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Transforms the inner value in an optional</span>
+        <span class="co">/// into another optional. The result is flattened, </span>
+        <span class="co">/// and if either is empty, an empty optional is returned.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"mapping"</span><span class="kw">&gt;</span><span class="co">The transformation function.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The transformed optional.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;TResult&gt; FlatMap&lt;TResult&gt;(Func&lt;T, Option&lt;TResult&gt;&gt; mapping)
+        {
+            <span class="kw">return</span> <span class="fu">Match</span>(
+                some: value =&gt; <span class="fu">mapping</span>(value),
+                none: () =&gt; Option.<span class="fu">None</span>&lt;TResult&gt;()
+            );
+        }
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Transforms the inner value in an optional</span>
+        <span class="co">/// into another optional. The result is flattened, </span>
+        <span class="co">/// and if either is empty, an empty optional is returned.</span>
+        <span class="co">/// If the option contains an exception, it is removed.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"mapping"</span><span class="kw">&gt;</span><span class="co">The transformation function.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The transformed optional.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;TResult&gt; FlatMap&lt;TResult, TException&gt;(Func&lt;T, Option&lt;TResult, TException&gt;&gt; mapping) =&gt;
+            <span class="fu">FlatMap</span>(value =&gt; <span class="fu">mapping</span>(value).<span class="fu">WithoutException</span>());
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Empties an optional, if a specified condition</span>
+        <span class="co">/// is not satisfied.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"condition"</span><span class="kw">&gt;</span><span class="co">The condition.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The filtered optional.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;T&gt; <span class="fu">Filter</span>(<span class="dt">bool</span> condition) =&gt; hasValue &amp;&amp; !condition ? Option.<span class="fu">None</span>&lt;T&gt;() : <span class="kw">this</span>;
+
+        <span class="co">/// </span><span class="kw">&lt;summary&gt;</span>
+        <span class="co">/// Empties an optional, if a specified predicate</span>
+        <span class="co">/// is not satisfied.</span>
+        <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"predicate"</span><span class="kw">&gt;</span><span class="co">The predicate.</span><span class="kw">&lt;/param&gt;</span>
+        <span class="co">/// </span><span class="kw">&lt;returns&gt;</span><span class="co">The filtered optional.</span><span class="kw">&lt;/returns&gt;</span>
+        <span class="kw">public</span> Option&lt;T&gt; <span class="fu">Filter</span>(Func&lt;T, <span class="dt">bool</span>&gt; predicate)
+        {
+            <span class="dt">var</span> original = <span class="kw">this</span>;
+            <span class="kw">return</span> <span class="fu">Match</span>(
+                some: value =&gt; <span class="fu">predicate</span>(value) ? original : Option.<span class="fu">None</span>&lt;T&gt;(),
+                none: () =&gt; original
+            );
+        }
+    }
+}</code></pre></div>
+            </section>
+        </main>
+        <footer>
+            <div class="container">
+                <h2>uncode</h2>
+                <div class="row">
+                    <div class="column">
+                        <i class="fa fa-github"></i> <a href="https://github.com/nlkl">nlkl</a><br />
+                        <i class="fa fa-twitter"></i> <a href="https://twitter.com/nilsluck">nilsluck</a>
+                    </div>
+                    <div class="column column-75 column-responsive">
+                        <p>This is my attempt at an opinionated coding blog. I fancy minimalistic and  consistent software design, functional programming principles, code-aesthetics,  and unbureacratic coding practices - my blog will reflect this, so be ware.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
