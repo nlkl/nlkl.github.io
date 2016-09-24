@@ -1,8 +1,9 @@
-<div class="info">
-    Posted on $date$
-    $if(author)$
-        by $author$
-    $endif$
-</div>
-
-$body$
+<section class="container">
+    <header>
+        <h1 class="post-title">$title$</h1>
+        <p class="post-date"><i class="fa fa-calendar"></i>$date$</p>
+    </header>
+    <article>
+        $body$
+    </article>
+</section>
