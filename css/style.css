@@ -37,12 +37,12 @@ b, strong {
     font-weight: bold;
 }
 
-.button {
+.button, .button:active {
     background-color: #62aba8;
     border: .1rem solid #62aba8;
 }
 
-.button:hover {
+.button:hover, .button:focus {
     background-color: #32cec7;
     border: .1rem solid #32cec7;
 }

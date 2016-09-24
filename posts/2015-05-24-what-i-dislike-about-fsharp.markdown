@@ -1,7 +1,6 @@
 ---
-layout: post
-title:  "What I dislike about F#"
-date:   2015-05-24 17:38:00
+title: What I dislike about F#
+date: 2015-05-24 17:38:00
 comments: true
 share: true
 categories: functional-programming fsharp
@@ -11,7 +10,7 @@ Let me start by stressing that I do like F#, and this post is not a bashing of F
 
 However, all programming languages have intrinsic flaws, and this post simply highlights some of the aspects of F# that I find somewhat annoying. As you have already guessed, this post will be highly subjective ;)
 
-# OCaml heritage
+## OCaml heritage
 
 F# is both semantically and syntactically inspired by OCaml. Whereas this might make the language more familiar to OCaml developers, I believe that this choice has had a negative impact on the overall language design.
 
@@ -21,15 +20,15 @@ Particularly, I think that F# could have borrowed a few of the syntactic improve
 
 One example of this is tupled value constructors, which produces a lot more noise than Haskell's curried version (I recognize that this is also a semantic difference). Consider the following contrived example:
 
-{% highlight fsharp %}
+~~~fsharp
 let formatPhoneNumber (PhoneNumber (prefix, number)) = ...
-{% endhighlight %}
+~~~
 
 And a hypothetical curried version could look like this:
 
-{% highlight fsharp %}
+~~~fsharp
 let formatPhoneNumber (PhoneNumber prefix number) = ...
-{% endhighlight %}
+~~~
 
 Notice that the curried version is not only cleaner, but also more flexible, and doesn't rule out that we could use a tupled version if we should so desire.
 
@@ -39,7 +38,7 @@ I am not saying that the syntax should necessarily be identical to that of Haske
 
 Finally, the language currently has a lot of optional and redundant syntax, due to this "ML compatibility" (which I think is complete bogus anyway). The optional syntactic constructs don't bother me much, but it feels unclean that they are there for no better reason.
 
-# Too much OOP
+## Too much OOP
 
 Whereas F#'s OCaml heritage is only a minor annoyance, my primary F# pain point is the amount of OOP interop that is forced onto you.
 
@@ -55,7 +54,7 @@ F#-specific third-party libraries are better of course, but much less abundant. 
 
 It should of course be noted that OOP interop is the price we pay for running on the .NET platform. As with most compromises, it is both a blessing and a curse.
 
-# Lack of functional polymorphism
+## Lack of functional polymorphism
 
 One point that might force one into developing a partly OOP-based API, is the lack of non-OOP polymorphism.
 
@@ -65,7 +64,7 @@ In simple application code, we can often get quite far using generics and built-
 
 Still, I certainly recognize that this is not an easy problem to solve for the language designers, as it isn't trivial to find a CIL representation that plays well with the rest of .NET (particularly not if we are talking higher-kinded polymorphism). Nevertheless, some sort of functional polymorphism, be it ad-hoc polymorphism, higher-order modules, or something else entirely, would be a nice complement to the language.
 
-# Too little focus on immutable data structures
+## Too little focus on immutable data structures
 
 In my opinion, one of the central benefits of functional programming is the focus on immutability. In order to apply immutability effectively, however, it should be as convenient as possible to work with immutable data.
 
@@ -75,8 +74,7 @@ Out-of-the-box F# provides an immutable list (basically a stack), a sorted set, 
 
 Again, this is a problem with the standard library, rather than the language itself. Still, it is so important that I had to mention it. There are third-party libraries that provide some of these data structures, but such essential functionality belong in the standard library. F# should at least provide an immutable queue (rather simple to implement) and an immutable vector (more complex, but not too much).
 
-
-# Final remarks
+## Final remarks
 
 Please note that this is by no means an exhaustive list, and I am sure I can find more annoying features if I look harder ;) 
 

@@ -1,0 +1,15 @@
+---
+title: Posts
+---
+
+<section class="container">
+    <h1>Posts</h1>
+    $for(posts)$
+    <div class="row">
+        <div class="column post-list-date">$date$</div>
+        <div class="column column-90 column-responsive">
+            <h2><a href="$url$">$title$</a></h2>
+        </div>
+    </div>
+    $endfor$
+</section>

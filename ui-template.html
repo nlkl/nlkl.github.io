@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>uncode</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+        <link rel="stylesheet" href="css/normalize.min.css" />
+        <link rel="stylesheet" href="css/milligram.min.css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container">
+                <h1><a href="/">uncode</a></h1>
+                <h2>Nils Lück's blog</h2>
+                <nav>
+                    <a href="#">Posts</a>
+                    <a href="#">About</a>
+                    <a href="#"><i class="fa fa-rss"></i></a>
+                </nav>
+            </div>
+        </header>
+        <section class="container">
+            <h1>About</h1>
+            <p>My name is Nils Lück and I am a software developer currently residing in Copenhagen, Denmark. I work as a .NET (C#) developer, but my interests span more widely. Specifically, I enjoy functional programming, simplistic software design, and programming languages in general.</p>
+
+            <p>This blog reflects my opinions on computer science and software development in general.</p>
+
+            <p>Feel free to follow me on:</p>
+
+            <ul class="fa-ul">
+              <li><i class="fa fa-li fa-github"></i><a href="https://github.com/nlkl">GitHub</a></li>
+              <li><i class="fa fa-li fa-bitbucket"></i><a href="https://bitbucket.org/nilu">Bitbucket</a></li>
+              <li><i class="fa fa-li fa-twitter"></i><a href="https://twitter.com/nilsluck">Twitter</a></li>
+            </ul>
+        </section>
+        <section class="container">
+            <h1>Posts</h1>
+            <div class="row">
+                <div class="column post-list-date">May 24, 2015</div>
+                <div class="column column-90 column-responsive">
+                    <h2><a href="#">What I dislike about F#</a></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column post-list-date">May 24, 2015</div>
+                <div class="column column-90 column-responsive">
+                    <h2><a href="#">What I dislike about F#</a></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column post-list-date">May 24, 2015</div>
+                <div class="column column-90 column-responsive">
+                    <h2><a href="#">What I dislike about F#</a></h2>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <header>
+                <h1 class="post-title">What I dislike about F#</h1>
+                <p class="post-date"><i class="fa fa-calendar"></i>May 24, 2015</p>
+            </header>
+            <article>
+                <p><strong>Let me start by stressing</strong> that I do like F#, and this post is not a bashing of F# as such. I think F# has a lot to offer, and I recognize the compromises the language designers had to make, in order to make the .NET integration <a href="#">as smooth as possible.</a></p>
+
+                <p>However, <code>all programming languages</code> have intrinsic flaws, and this post simply highlights some of the aspects of F# that I find somewhat annoying. As you have already guessed, this post will be highly subjective ;)</p>
+
+                <h2 id="ocaml-heritage">OCaml heritage</h2>
+
+                <p>F# is both semantically and syntactically inspired by OCaml. Whereas this might make the language more familiar to OCaml developers, I believe that this choice has had a negative impact on the overall language design.</p>
+
+                <p>The original F# syntax was closely inspired by that of OCaml. Since then, a “lighter” syntax was introduced (and made default), which removed a lot of the syntactic overhead of the old syntax. Even with the lighter syntax, however, the overall syntactic elements closely resemble those of OCaml, which means that F# is filled with lots of “arbitrary” syntactic decisions.</p>
+
+                <p>Particularly, I think that F# could have borrowed a few of the syntactic improvements of Haskell, to make the code a bit easier on the eyes. </p>
+
+                <p>One example of this is tupled value constructors, which produces a lot more noise than Haskell’s curried version (I recognize that this is also a semantic difference). Consider the following contrived example:</p>
+
+                <p>And a hypothetical curried version could look like this:</p>
+
+                <p>Notice that the curried version is not only cleaner, but also more flexible, and doesn’t rule out that we could use a tupled version if we should so desire.</p>
+
+                <h2 id="too-much-oop">Too much OOP</h2>
+
+                <p>Whereas F#’s OCaml heritage is only a minor annoyance, my primary F# pain point is the amount of OOP interop that is forced onto you.</p>
+
+                <p>F# comes with a small functional standard library, providing things such as list-manipulation and the like. As long as this is all you need, the world is all peachy. However, as soon as you are working on a task of non-trivial size, you will need to use functionality from <em>somewhere else</em>, as the F# standard library simply doesn’t offer too much functionality out-of-the-box.</p>
+
+                <pre><code>let formatPhoneNumber (PhoneNumber (prefix, number)) = ...</code></pre>
+            </article>
+        </section>
+        <section class="container">
+            <hr />
+            <a class="button" href="#">More posts</a>
+        </section>
+        <footer>
+            <div class="container">
+                <h2>uncode</h2>
+                <div class="row">
+                    <div class="column">
+                        <i class="fa fa-github"></i> <a href="https://github.com/nlkl">nlkl</a><br />
+                        <i class="fa fa-twitter"></i> <a href="https://twitter.com/nilsluck">nilsluck</a>
+                    </div>
+                    <div class="column column-75 column-responsive">
+                        <p>This is my attempt at an opinionated coding blog. I fancy minimalistic and  consistent software design, functional programming principles, code-aesthetics,  and unbureacratic coding practices - my blog will reflect this, so be ware.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

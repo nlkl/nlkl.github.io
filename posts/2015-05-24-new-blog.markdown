@@ -1,9 +1,9 @@
 ---
-layout: post
-title:  "Mandatory introductory post"
-date:   2015-05-24 13:14:12
+title: Mandatory introductory post
+date: 2015-05-24 13:14:12
 categories: update
 ---
+
 It seems that everyone is having a personal development-blog nowadays, so I thought I might as well give it a shot too.
 
 My name is Nils Lück and I am a software developer currently residing in Copenhagen, Denmark. I work as a .NET (C#) developer, but my interests span more widely. Specifically, I enjoy functional programming, simplistic software design, and programming languages in general.
@@ -16,9 +16,9 @@ Until I actually write something useful'ish, feel free to follow me on [GitHub][
 
 Oh, and I am positively surprised that Jekyll supports syntax highlighting out-of-the-box:
 
-{% highlight fsharp %}
+~~~fsharp
 let rec map mapping xs =
     match xs with
     | x :: xs' -> mapping x :: map mapping xs'
     | [] -> []
-{% endhighlight %}
+~~~
