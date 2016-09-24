@@ -30,6 +30,8 @@ main = hakyll $ do
             post <- loadAndApplyTemplate "templates/post.html" postCtx compiled
             postRef <- loadAndApplyTemplate "templates/post-ref.html" postCtx compiled
             saveSnapshot "post" postRef
+            postFeed <- loadAndApplyTemplate "templates/post-feed.html" postCtx compiled
+            saveSnapshot "post-feed" postFeed
             loadAndApplyTemplate "templates/layout.html" postCtx post
                 >>= relativizeUrls
 
@@ -57,14 +59,14 @@ main = hakyll $ do
         route idRoute
         compile $ do
             let feedCtx = postCtx `mappend` bodyField "description"
-            posts <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "post"
+            posts <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "post-feed"
             renderAtom feedConfiguration feedCtx posts
 
     create ["feed.xml"] $ do
         route idRoute
         compile $ do
             let feedCtx = postCtx `mappend` bodyField "description"
-            posts <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "post"
+            posts <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "post-feed"
             renderRss feedConfiguration feedCtx posts
 
     match "templates/*" $ compile templateCompiler
