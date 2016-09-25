@@ -43,6 +43,10 @@ pre {
     border-color: #62aba8;
 }
 
+pre > code {
+    overflow: auto;
+}
+
 b, strong {
     font-weight: bold;
 }
