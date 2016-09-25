@@ -9,16 +9,6 @@
 
 /* === Base === */
 
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-}
-
 section.container {
     margin-top: 2.5rem;
 }
@@ -63,18 +53,18 @@ b, strong {
 
 /* === Header and Footer === */
 
-header.site-header {
+.site-header {
     background: #000000;
 }
 
-header.site-header h1 {
+.site-header h1 {
     font-size: 2.5rem;
     display: inline;
     margin-right: 1rem;
     line-height: 4.5rem;
 }
 
-header.site-header h2 {
+.site-header h2 {
     font-size: 1.5rem;
     display: inline;
     line-height: 4.5rem;
@@ -89,27 +79,43 @@ nav a {
     margin-left: 1rem;
 }
 
-footer {
+.site-footer {
     background: #000000;
     padding: 1rem 0 0 0;
     color: #ffffff;
     margin-top: 5rem;
 }
 
-footer h2 {
+.site-footer h2 {
     margin-bottom: 0;
 }
 
-footer .column {
+.site-footer .column {
     margin-top: 0.5rem;
 }
 
-footer i {
+.site-footer i {
     margin-right: 0.8rem;
 }
 
-footer p {
+.site-footer p {
     font-size: 0.9em;
+}
+
+/* === Sticky Footer === */
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.site-header, .site-footer {
+    flex-shrink: 0;
+}
+
+.site-content {
+  flex: 1 0 auto;
 }
 
 /* === Posts === */
